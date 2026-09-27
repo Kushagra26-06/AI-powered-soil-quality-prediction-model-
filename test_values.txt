@@ -1,0 +1,125 @@
+# Soil Quality Prediction System - Test Values
+# Use these values to verify the prediction system is working correctly
+
+## Test Case 1: Highly Fertile Soil (Expected: Highly Fertile)
+ph: 6.8
+N: 75.0
+P: 35.0
+K: 50.0
+moisture: 30.0
+oc: 3.5
+ec: 1.2
+temp: 28.0
+ca: 1200.0
+mg: 450.0
+S: 20.0
+fe: 30.0
+zn: 2.5
+cu: 2.0
+texture: 35.0
+cec: 20.0
+bd: 1.35
+wh: 35.0
+microbial: 80.0
+B: 3.5
+
+## Test Case 2: Average Fertile Soil (Expected: Fertile)
+ph: 6.5
+N: 55.0
+P: 25.0
+K: 40.0
+moisture: 25.0
+oc: 2.5
+ec: 1.0
+temp: 27.0
+ca: 1000.0
+mg: 350.0
+S: 15.0
+fe: 25.0
+zn: 2.0
+cu: 1.5
+texture: 30.0
+cec: 18.0
+bd: 1.4
+wh: 30.0
+microbial: 70.0
+B: 3.0
+
+## Test Case 3: Less Fertile Soil (Expected: Less Fertile)
+ph: 5.5
+N: 30.0
+P: 15.0
+K: 25.0
+moisture: 20.0
+oc: 1.5
+ec: 0.8
+temp: 25.0
+ca: 800.0
+mg: 250.0
+S: 10.0
+fe: 15.0
+zn: 1.0
+cu: 1.0
+texture: 25.0
+cec: 15.0
+bd: 1.5
+wh: 25.0
+microbial: 60.0
+B: 2.0
+
+## Test Case 4: Edge Case - High pH (Expected: Less Fertile)
+ph: 8.5
+N: 60.0
+P: 30.0
+K: 45.0
+moisture: 28.0
+oc: 3.0
+ec: 1.5
+temp: 30.0
+ca: 1400.0
+mg: 500.0
+S: 18.0
+fe: 28.0
+zn: 2.2
+cu: 1.8
+texture: 32.0
+cec: 22.0
+bd: 1.3
+wh: 33.0
+microbial: 75.0
+B: 3.2
+
+## Test Case 5: Edge Case - Low Nutrients (Expected: Less Fertile)
+ph: 6.0
+N: 20.0
+P: 10.0
+K: 15.0
+moisture: 22.0
+oc: 1.8
+ec: 0.6
+temp: 26.0
+ca: 700.0
+mg: 200.0
+S: 8.0
+fe: 12.0
+zn: 0.8
+cu: 0.8
+texture: 28.0
+cec: 14.0
+bd: 1.45
+wh: 27.0
+microbial: 65.0
+B: 2.5
+
+# Instructions:
+# 1. Start both backend (python app.py) and frontend (python server.py) servers
+# 2. Open http://localhost:3000 in your browser
+# 3. Enter any test case values above
+# 4. Click "Analyze Soil Quality"
+# 5. Verify:
+#    - No prediction errors occur
+#    - Charts update in real-time
+#    - Radar chart shows parameter comparison
+#    - Gauge chart displays soil quality score
+#    - Recommendations appear based on soil quality
+#    - Color coding matches expected results

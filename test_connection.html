@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            color: white;
+        }
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .error {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <div class="test-container">
+        <h2>Testing Backend Connection</h2>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function testConnection() {
+            const resultDiv = document.getElementById('result');
+            
+            // Test basic fetch to backend
+            fetch('http://127.0.0.1:5000/test')
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = '✅ Connection successful! Backend is responding.';
+                })
+                .catch(error => {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = '❌ Connection failed: ' + error.message;
+                });
+        }
+    </script>
+</body>
+</html>
