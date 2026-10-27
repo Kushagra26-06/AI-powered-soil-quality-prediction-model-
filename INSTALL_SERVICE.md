@@ -21,7 +21,7 @@ I've created a permanent service solution:
 1. Open Command Prompt as Administrator
 2. Navigate to backend directory:
    ```
-   cd "c:\Users\Kushagra\OneDrive\Documents\Artificial Intelligence\soil-quality-prediction\backend"
+   cd soil-quality-prediction\backend
    ```
 3. Start the service:
    ```
@@ -70,8 +70,8 @@ For a true permanent solution, you can install as a Windows service:
 - `INSTALL_SERVICE.md` - This documentation
 
 ## URLs:
-- **Backend API**: `http://localhost:5000`
-- **Frontend**: `http://localhost:3000`
-- **Health Check**: `http://localhost:5000/health`
+- **Backend API**: `http://127.0.0.1:5000`
+- **Frontend**: `http://127.0.0.1:3003`
+- **Health Check**: `http://127.0.0.1:5000/health`
 
 This completely solves the backend persistence issue!

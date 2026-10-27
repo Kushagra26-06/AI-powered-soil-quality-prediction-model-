@@ -17,53 +17,62 @@
 - **Performance**: 0.1s transitions, instant DOM updates
 
 ### Server Configuration
-- **Backend**: Flask app on port 5000
-- **Frontend**: Python server on port 3003
-- **Model**: Random Forest with 11 soil parameters
-- **API**: All endpoints working (/predict, /health, /features)
+- **Backend**: Flask app on port 5000 (`http://127.0.0.1:5000`)
+- **Frontend**: Python server on port 3003 (`http://127.0.0.1:3003`)
+- **Model**: Random Forest with 11 soil parameters (98.5% accuracy)
+- **API**: All endpoints working (/predict, /health, /features, /calculate_score, /recommendations)
+- **Charts**: Semantic color-coding (Fertile = Green, Less Fertile = Red, Highly Fertile = Blue)
+- **Cards**: Clean uniform dark/light styling without jarring full-red container fill
 
 ### File Structure
 ```
-soil-quality-prediction/
-|-- backend/
-|   |-- app.py (Flask server)
-|   |-- train_model.py (Model training)
-|   |-- soil_quality_model.pkl (Trained model)
-|   |-- soil_quality_scaler.pkl (Scaler)
-|   |-- model_info.pkl (Model metadata)
-|   `-- requirements.txt (Dependencies)
-|-- frontend/
-|   |-- index.html (UI with theme toggle)
-|   |-- script.js (JavaScript with sliding toggle)
-|   |-- styles.css (CSS with icon fixes)
-|   |-- server.py (Frontend server on port 3003)
-|   `-- test_values.txt (Test data)
-|-- start_system.py (Auto-startup script)
-`-- README_BACKUP.md (This file)
+AI-powered-soil-quality-prediction-model-/
+|-- start_servers.bat (Windows one-click launcher with health polling)
+|-- start_system.py (Python cross-platform startup script)
+|-- README.md (Primary repository documentation)
+|-- README_SERVER.md (Server setup guide)
+|-- TROUBLESHOOTING_GUIDE.md (Network & connection diagnostics)
+`-- soil-quality-prediction/
+    |-- backend/
+    |   |-- app.py (Flask REST API)
+    |   |-- train_model.py (Model training)
+    |   |-- soil_quality_model.pkl (Trained Random Forest model)
+    |   |-- soil_quality_scaler.pkl (Standard scaler)
+    |   |-- model_info.pkl (Model metadata)
+    |   `-- requirements.txt (Python dependencies)
+    `-- frontend/
+        |-- index.html (Responsive dashboard with live connection badge)
+        |-- script.js (Chart rendering, auto-reconnect, prediction handling)
+        |-- styles.css (Clean card themes, animations, toggle styles)
+        |-- server.py (Frontend server on port 3003)
+        `-- test_values.txt (Sample soil test data)
 ```
 
 ## Quick Start Instructions
 
-### Method 1: Auto-start (Recommended)
+### Method 1: Windows One-Click Launcher (Recommended)
+Double-click `start_servers.bat` in the project root. It starts backend Flask, waits for health confirmation, launches the frontend HTTP server, and opens your browser.
+
+### Method 2: Python Auto-start
 ```bash
 python start_system.py
 ```
 
-### Method 2: Manual Start
+### Method 3: Manual Start
 ```bash
 # Terminal 1 - Backend
-cd backend
+cd soil-quality-prediction/backend
 python app.py
 
 # Terminal 2 - Frontend  
-cd frontend
+cd soil-quality-prediction/frontend
 python server.py
 ```
 
 ### Access URLs
-- **Main Application**: http://localhost:3003
-- **Backend API**: http://localhost:5000
-- **Health Check**: http://localhost:5000/health
+- **Main Application**: http://127.0.0.1:3003
+- **Backend API**: http://127.0.0.1:5000
+- **Health Check**: http://127.0.0.1:5000/health
 
 ## Critical CSS Rules (Do Not Modify)
 ```css

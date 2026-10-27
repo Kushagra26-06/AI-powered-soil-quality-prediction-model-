@@ -1,54 +1,51 @@
-# Soil Quality Prediction System - Server Setup
+# Soil Quality Prediction System - Server Setup Guide
 
-## Why Backend Server Stops When Closing Windsurf
+## Running Servers Independently of IDEs
 
-The backend server stops running when you close Windsurf because:
-1. **Background Process**: The server runs as a background process in your current IDE session
-2. **Session Termination**: When you close Windsurf, all running processes are terminated
-3. **No Persistence**: The server isn't configured to run as a persistent service
+When you run Python servers directly inside an IDE terminal (such as VS Code, Windsurf, or PyCharm), closing the IDE terminates the child processes. To keep servers running independently, use the standalone launcher or standalone terminal windows.
 
-## Solutions
+---
 
-### Option 1: Use Batch Files (Recommended)
-I've created two batch files for you:
+## Recommended Launch Options
 
-**Start Backend Server:**
-- File: `start_backend.bat`
-- Double-click to run the backend server independently
-- Server will run until you manually close the terminal
+### Option 1: Unified Windows Launcher (Recommended)
+Double-click **`start_servers.bat`** in the project root directory.
 
-**Start Frontend Server:**
-- File: `start_frontend.bat`
-- Double-click to run the frontend server independently
-- Server will run until you manually close the terminal
+- Starts both backend (Flask API) and frontend (HTTP server) in their own independent Windows command prompt windows.
+- Automatically polls `http://127.0.0.1:5000/health` using `curl` until the Random Forest model is loaded and verified online.
+- Launches the frontend server on port `3003` and opens your browser directly at `http://127.0.0.1:3003`.
+- The servers continue running independently even if your code editor or IDE is closed.
 
-### Option 2: Manual Terminal Commands
-1. Open Command Prompt or PowerShell
-2. Navigate to backend directory:
-   ```
-   cd "c:\Users\Kushagra\OneDrive\Documents\Artificial Intelligence\soil-quality-prediction\backend"
-   ```
-3. Start backend:
-   ```
+### Option 2: Cross-Platform Python Launcher
+Run from the root directory:
+```bash
+python start_system.py
+```
+
+### Option 3: Manual Terminal Commands
+Open two separate Command Prompt or PowerShell windows:
+
+1. **Terminal 1 - Backend Server:**
+   ```bash
+   cd soil-quality-prediction\backend
    python app.py
    ```
-4. Open another terminal for frontend:
-   ```
-   cd "c:\Users\Kushagra\OneDrive\Documents\Artificial Intelligence\soil-quality-prediction\frontend"
+   > Listens at `http://127.0.0.1:5000`
+
+2. **Terminal 2 - Frontend Server:**
+   ```bash
+   cd soil-quality-prediction\frontend
    python server.py
    ```
+   > Listens at `http://127.0.0.1:3003`
 
-### Option 3: Keep Windsurf Open
-- Simply keep Windsurf running in the background
-- The servers will continue running as long as Windsurf is open
+---
 
-## Access URLs
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000
-- **Health Check:** http://localhost:5000/health
+## Server URLs
 
-## Quick Start
-1. Double-click `start_backend.bat` to start the backend
-2. Double-click `start_frontend.bat` to start the frontend
-3. Open http://localhost:3000 in your browser
-4. Done! Servers will run independently of Windsurf
+- **Web Dashboard:** `http://127.0.0.1:3003`
+- **Backend API:** `http://127.0.0.1:5000`
+- **Health Check:** `http://127.0.0.1:5000/health`
+- **Model Features:** `http://127.0.0.1:5000/features`
+
+> **Note on Windows Loopback:** Always use `127.0.0.1` rather than `localhost` to avoid Windows IPv6 `[::1]` resolution latency and connection refusal.

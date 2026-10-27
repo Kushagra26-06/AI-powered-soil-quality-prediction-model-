@@ -8,7 +8,7 @@ If you're seeing "cannot reach backend server" or similar connection errors, fol
 
 **Run the backend server manually:**
 ```bash
-cd "c:\Users\Kushagra\OneDrive\Documents\Artificial Intelligence\soil-quality-prediction\backend"
+cd soil-quality-prediction\backend
 python app.py
 ```
 

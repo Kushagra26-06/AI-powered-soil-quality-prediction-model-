@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Debug Test</title>
+</head>
+
+<body>
+    <h1>JavaScript Debug Test</h1>
+    <div id="test-results"></div>
+    <button onclick="testBasicFunctions()">Test Basic Functions</button>
+    <button onclick="testThemeToggle()">Test Theme Toggle</button>
+    <button onclick="testSampleData()">Test Sample Data</button>
+
+    <script>
+        // Test basic JavaScript functionality
+        function testBasicFunctions() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+
+            // Test 1: Check if script loads
+            if (typeof console !== 'undefined') {
+                results.innerHTML += '<p>✅ Console available</p>';
+            } else {
+                results.innerHTML += '<p>❌ Console not available</p>';
+            }
+
+            // Test 2: Check DOM elements
+            const form = document.getElementById('soilForm');
+            if (form) {
+                results.innerHTML += '<p>✅ Form element found</p>';
+            } else {
+                results.innerHTML += '<p>❌ Form element not found</p>';
+            }
+
+            // Test 3: Check API configuration
+            if (typeof API_BASE_URL !== 'undefined') {
+                results.innerHTML += '<p>✅ API_BASE_URL defined: ' + API_BASE_URL + '</p>';
+            } else {
+                results.innerHTML += '<p>❌ API_BASE_URL not defined</p>';
+            }
+        }
+
+        function testThemeToggle() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+
+            // Test theme toggle elements
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+
+            if (themeToggle) {
+                results.innerHTML += '<p>✅ Theme toggle found</p>';
+            } else {
+                results.innerHTML += '<p>❌ Theme toggle not found</p>';
+            }
+
+            if (sunIcon) {
+                results.innerHTML += '<p>✅ Sun icon found</p>';
+            } else {
+                results.innerHTML += '<p>❌ Sun icon not found</p>';
+            }
+
+            if (moonIcon) {
+                results.innerHTML += '<p>✅ Moon icon found</p>';
+            } else {
+                results.innerHTML += '<p>❌ Moon icon not found</p>';
+            }
+        }
+
+        function testSampleData() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+
+            // Test sample data loading
+            const loadSampleBtn = document.getElementById('loadSampleBtn');
+            if (loadSampleBtn) {
+                results.innerHTML += '<p>✅ Load sample button found</p>';
+            } else {
+                results.innerHTML += '<p>❌ Load sample button not found</p>';
+            }
+
+            // Test sample data object
+            if (typeof sampleData !== 'undefined') {
+                results.innerHTML += '<p>✅ Sample data defined</p>';
+            } else {
+                results.innerHTML += '<p>❌ Sample data not defined</p>';
+            }
+        }
+    </script>
+</body>
+
+</html>

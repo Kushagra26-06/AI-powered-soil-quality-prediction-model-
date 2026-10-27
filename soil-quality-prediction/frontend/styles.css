@@ -1,0 +1,469 @@
+/* Soil Quality Prediction System - Clean CSS */
+
+/* Base Styles - Reference Image Match */
+body {
+    background: transparent;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1f2937;
+}
+
+/* Light mode styles */
+body:not(.dark-mode) {
+    background-color: #f7fafc;
+    background-image:
+        radial-gradient(at 0% 0%, hsla(147, 61%, 92%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(213, 86%, 92%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 100%, hsla(177, 85%, 92%, 1) 0, transparent 50%);
+    background-attachment: fixed;
+    color: #1f2937;
+}
+
+/* Force all text visibility in light mode */
+body:not(.dark-mode) * {
+    color: #1f2937 !important;
+}
+
+body:not(.dark-mode) h1,
+body:not(.dark-mode) h2,
+body:not(.dark-mode) h3,
+body:not(.dark-mode) h4,
+body:not(.dark-mode) h5,
+body:not(.dark-mode) h6 {
+    color: #1f2937 !important;
+    font-weight: 600 !important;
+}
+
+/* Header with Green to Blue Gradient */
+header {
+    background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Base Overrides */
+body.dark-mode {
+    background: #151821 !important;
+}
+
+body.dark-mode header {
+    background: linear-gradient(90deg, #065f46 0%, #1e3a8a 100%) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Card Styles - Dark Theme Default */
+body.dark-mode .bg-white {
+    background: #212332 !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25) !important;
+    backdrop-filter: none !important;
+    border-radius: 10px !important;
+}
+
+/* Text Colors - Dark Theme */
+body.dark-mode .text-gray-700 {
+    color: #e5e7eb !important;
+    font-weight: 500;
+}
+
+body.dark-mode .text-gray-800 {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+body.dark-mode .text-gray-600 {
+    color: #d1d5db !important;
+}
+
+body.dark-mode .text-gray-500 {
+    color: #9ca3af !important;
+    font-weight: 400;
+}
+
+/* Fix all text in dark mode */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode div {
+    color: #ffffff !important;
+}
+
+/* Dark mode form inputs */
+body.dark-mode input[type="number"] {
+    background: #2b2f42 !important;
+    border: 1px solid #373c52 !important;
+    color: #f1f5f9 !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode input[type="number"]:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+    background: #31364b !important;
+    outline: none !important;
+}
+
+body.dark-mode input::placeholder {
+    color: #64748b !important;
+}
+
+/* Card Styles - Light Theme */
+body:not(.dark-mode) .bg-white {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* Text Colors - Light Theme */
+body:not(.dark-mode) .text-gray-700 {
+    color: #374151 !important;
+    font-weight: 500;
+}
+
+body:not(.dark-mode) .text-gray-800 {
+    color: #111827 !important;
+    font-weight: 700;
+}
+
+body:not(.dark-mode) .text-gray-600 {
+    color: #6b7280 !important;
+}
+
+body:not(.dark-mode) .text-gray-500 {
+    color: #9ca3af !important;
+    font-weight: 400;
+}
+
+/* Button Styles */
+.bg-gradient-to-r {
+    background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+    transition: all 0.3s ease;
+}
+
+.bg-gradient-to-r:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
+}
+
+/* Form Input Styles */
+input[type="number"] {
+    background: rgba(17, 24, 39, 0.9) !important;
+    border: 2px solid rgba(75, 85, 99, 0.5) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    padding: 12px !important;
+    border-radius: 8px !important;
+}
+
+input[type="number"]:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    background: rgba(17, 24, 39, 0.95) !important;
+    outline: none !important;
+}
+
+input::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Light mode inputs */
+body:not(.dark-mode) input[type="number"] {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid rgba(209, 213, 219, 0.8) !important;
+    color: #1f2937 !important;
+}
+
+body:not(.dark-mode) input[type="number"]:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    background: rgba(255, 255, 255, 1) !important;
+}
+
+body:not(.dark-mode) input::placeholder {
+    color: #6b7280 !important;
+}
+
+/* Theme Toggle Styles - Clean Sliding Switch */
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.theme-switch-slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-switch-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    left: 2px;
+}
+
+body.dark-mode .theme-switch-slider::before {
+    transform: translateX(24px);
+}
+
+/* Icon positioning */
+.theme-switch i {
+    position: absolute;
+    z-index: 2;
+    font-size: 14px;
+    right: 5px;
+}
+
+#sunIcon {
+    color: #fbbf24 !important;
+}
+
+#moonIcon {
+    color: #1e40af !important;
+}
+
+/* Prediction Results Cards Styling - Uniform clean dark/light theme */
+#fertilityCard {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode #fertilityCard {
+    background: #212332 !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+body:not(.dark-mode) #fertilityCard {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+#recommendationsCard {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode #recommendationsCard {
+    background: #212332 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+body:not(.dark-mode) #recommendationsCard {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+/* Confidence Analysis - Green Progress Bar */
+.confidence-bar-green {
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%) !important;
+    height: 24px;
+    border-radius: 12px;
+    transition: width 1s ease-out;
+}
+
+.confidence-percentage-green {
+    color: #10b981 !important;
+    font-weight: 700;
+}
+
+/* Chart Styles */
+.chart-container {
+    position: relative;
+    background: #212332 !important;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+.chart-container h3 {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Canvas resizes natively via Chart.js parent block size */
+canvas {
+    display: block;
+}
+
+/* Light mode charts */
+body:not(.dark-mode) .chart-container {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(229, 231, 235, 0.8) !important;
+}
+
+body:not(.dark-mode) .chart-container h3 {
+    color: #1f2937 !important;
+}
+
+/* Ensure charts are visible */
+#confidencePieChart,
+#parameterBarChart {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Result boxes text visibility */
+.success-results * {
+    color: inherit !important;
+}
+
+body:not(.dark-mode) .success-results * {
+    color: #1f2937 !important;
+}
+
+body.dark-mode .success-results * {
+    color: #ffffff !important;
+}
+
+.success-results {
+    color: #1f2937 !important;
+}
+
+body.dark-mode .success-results {
+    color: #ffffff !important;
+}
+
+/* Ensure Load Sample Data container has no messy background */
+.mb-4 .bg-blue-50 {
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Button gradient is handled by Tailwind classes */
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .grid-cols-1.md\:grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-cols-1.lg\:grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Success/Error States */
+.success-glow {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.error-glow {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    animation: pulse 2s infinite;
+}
+
+/* Input Validation Styles */
+input:valid {
+    border-color: #10b981;
+}
+
+input:invalid {
+    border-color: #ef4444;
+}
+
+/* Additional Utility Classes */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Soil Quality Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Use unpkg CDN to bypass jsdelivr block if present -->
+    <script src="https://unpkg.com/chart.js/dist/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-100 to-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-seedling text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">Soil Quality Prediction System</h1>
+                        <p class="text-green-100 text-sm">Advanced AI-Powered Soil Analysis</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-brain mr-2"></i>Random Forest Model
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-chart-line mr-2"></i>98.5% Accuracy
+                    </span>
+                    <span id="backendStatusBadge" class="bg-yellow-500 bg-opacity-80 px-3 py-1 rounded-full text-sm cursor-pointer transition-all duration-300 select-none text-white font-medium" title="Click to test connection" onclick="checkBackendConnection(false, true)">
+                        <i id="backendStatusIcon" class="fas fa-circle-notch fa-spin mr-1"></i>
+                        <span id="backendStatusText">Backend: Connecting...</span>
+                    </span>
+                    <div id="themeToggle" class="theme-switch">
+                        <div class="theme-switch-slider">
+                            <i id="sunIcon" class="fas fa-sun text-yellow-400 text-lg"></i>
+                            <i id="moonIcon" class="fas fa-moon text-blue-300 text-lg" style="display: none;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total Parameters</p>
+                        <p class="text-2xl font-bold text-gray-800">20</p>
+                    </div>
+                    <i class="fas fa-flask text-3xl text-blue-500"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Fertility Classes</p>
+                        <p class="text-2xl font-bold text-gray-800">3</p>
+                    </div>
+                    <i class="fas fa-layer-group text-3xl text-green-500"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Model Type</p>
+                        <p class="text-2xl font-bold text-gray-800">RF</p>
+                    </div>
+                    <i class="fas fa-tree text-3xl text-purple-500"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Accuracy</p>
+                        <p class="text-2xl font-bold text-gray-800">98.5%</p>
+                    </div>
+                    <i class="fas fa-bullseye text-3xl text-red-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Form Section -->
+        <div class="max-w-4xl mx-auto">
+            <!-- Input Form -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">
+                            <i class="fas fa-vial mr-2 text-green-600"></i>
+                            Soil Parameters Input
+                        </h2>
+                        
+                        <!-- Load Sample Data Button -->
+                        <div class="mb-4">
+                            <button onclick="loadSampleData()" class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-2 px-4 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-md">
+                                <i class="fas fa-edit mr-2"></i>Load Sample Data
+                            </button>
+                        </div>
+                    
+                    <form id="soilForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="form-group">
+                    <label for="N" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-flask mr-2 text-green-500"></i>Nitrogen (mg/kg)
+                    </label>
+                    <input type="number" id="N" name="N" step="0.1" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="N value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="P" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-vial mr-2 text-blue-500"></i>Phosphorus (mg/kg)
+                    </label>
+                    <input type="number" id="P" name="P" step="0.1" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="P value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="K" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-atom mr-2 text-purple-500"></i>Potassium (mg/kg)
+                    </label>
+                    <input type="number" id="K" name="K" step="0.1" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="K value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ph" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-tint mr-2 text-cyan-500"></i>pH Level
+                    </label>
+                    <input type="number" id="ph" name="ph" step="0.1" min="0" max="14" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="0-14">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ec" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-bolt mr-2 text-yellow-500"></i>Electrical Conductivity (dS/m)
+                    </label>
+                    <input type="number" id="ec" name="ec" step="0.01" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="EC value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="oc" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-leaf mr-2 text-green-600"></i>Organic Carbon (%)
+                    </label>
+                    <input type="number" id="oc" name="oc" step="0.01" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="OC %">
+                </div>
+                
+                <div class="form-group">
+                    <label for="S" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-fire mr-2 text-orange-500"></i>Sulfur (mg/kg)
+                    </label>
+                    <input type="number" id="S" name="S" step="0.1" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="S value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="zn" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-gem mr-2 text-gray-500"></i>Zinc (mg/kg)
+                    </label>
+                    <input type="number" id="zn" name="zn" step="0.01" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="Zn value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fe" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-magnet mr-2 text-red-600"></i>Iron (mg/kg)
+                    </label>
+                    <input type="number" id="fe" name="fe" step="0.1" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="Fe value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="cu" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-coins mr-2 text-yellow-600"></i>Copper (mg/kg)
+                    </label>
+                    <input type="number" id="cu" name="cu" step="0.01" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="Cu value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="B" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-gem mr-2 text-pink-500"></i>Boron (mg/kg)
+                    </label>
+                    <input type="number" id="B" name="B" step="0.01" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                           placeholder="B value">
+                </div>
+                
+                <div class="md:col-span-2 lg:col-span-3">
+                    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-chart-line mr-2"></i>Analyze Soil Quality
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="max-w-4xl mx-auto mt-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">
+                        <i class="fas fa-chart-pie mr-2 text-blue-600"></i>
+                        Prediction Results
+                    </h2>
+                    
+                    <div id="resultsContainer" class="space-y-4">
+                        <!-- Default State -->
+                        <div id="defaultResults" class="text-center py-8">
+                            <i class="fas fa-seedling text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">Enter soil parameters to get predictions</p>
+                        </div>
+                        
+                        <!-- Loading State -->
+                        <div id="loadingResults" class="hidden text-center py-8">
+                            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+                            <p class="text-gray-500 mt-4">Analyzing soil parameters...</p>
+                        </div>
+                        
+                        <!-- Success State -->
+                        <div id="successResults" class="hidden space-y-4">
+                            <!-- Dynamic Color-Coded Fertility Status -->
+                            <div id="fertilityCard" class="rounded-lg p-6 border-2 transition-all duration-700 transform">
+                                <div class="text-center">
+                                    <div id="fertilityIcon" class="text-6xl mb-4 animate__animated animate__bounceIn"></div>
+                                    <h3 class="font-bold text-xl mb-2">Soil Quality Prediction</h3>
+                                    <div id="fertilityStatus" class="text-3xl font-bold mb-2 animate__animated animate__fadeInUp"></div>
+                                    <div id="fertilityLevel" class="text-lg mb-4"></div>
+                                    <div id="fertilityBadge" class="inline-block px-4 py-2 rounded-full text-white font-bold animate__animated animate__pulse animate__infinite"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Confidence Score with Animated Bar -->
+                            <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-lg">
+                                <h3 class="font-semibold text-gray-700 mb-3">
+                                    <i class="fas fa-chart-line mr-2"></i>Confidence Analysis
+                                </h3>
+                                <div class="flex items-center mb-3">
+                                    <div class="flex-1 bg-gray-200 rounded-full h-6 mr-3">
+                                        <div id="confidenceBar" class="h-6 rounded-full transition-all duration-1000 bg-gradient-to-r"></div>
+                                    </div>
+                                    <span id="confidenceText" class="text-lg font-bold"></span>
+                                </div>
+                                <div id="confidenceMessage" class="text-sm text-gray-600"></div>
+                            </div>
+                            
+                            <!-- Pie Chart for Confidence Distribution -->
+                            <div class="chart-container bg-white rounded-lg p-4 border border-gray-200 shadow-lg">
+                                <h3 class="font-semibold text-gray-700 mb-3">
+                                    <i class="fas fa-chart-pie mr-2"></i>Confidence Distribution
+                                </h3>
+                                <div class="relative h-64 w-full">
+                                    <canvas id="confidencePieChart" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Bar Chart for Parameter Analysis -->
+                            <div class="chart-container bg-white rounded-lg p-4 border border-gray-200 shadow-lg">
+                                <h3 class="font-semibold text-gray-700 mb-3">
+                                    <i class="fas fa-chart-bar mr-2"></i>Parameter Analysis
+                                </h3>
+                                <div class="relative h-64 w-full">
+                                    <canvas id="parameterBarChart" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Detailed Breakdown with Progress Bars -->
+                            <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-lg">
+                                <h3 class="font-semibold text-gray-700 mb-3">
+                                    <i class="fas fa-microscope mr-2"></i>Detailed Breakdown
+                                </h3>
+                                <div id="detailedBreakdown" class="space-y-3"></div>
+                            </div>
+                            
+                            <!-- Soil Quality Score -->
+                            <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-lg">
+                                <h3 class="font-semibold text-gray-700 mb-3">
+                                    <i class="fas fa-tachometer-alt mr-2"></i>Overall Soil Quality Score
+                                </h3>
+                                <div class="flex items-center justify-between">
+                                    <div class="text-5xl font-bold" id="soilScore">0</div>
+                                    <div class="text-right">
+                                        <div id="scoreRating" class="text-lg font-semibold mb-1"></div>
+                                        <div id="scoreDescription" class="text-sm text-gray-600"></div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 bg-gray-200 rounded-full h-4">
+                                    <div id="scoreBar" class="h-4 rounded-full transition-all duration-1000"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Recommendations -->
+                            <div id="recommendationsCard" class="rounded-lg p-4 border-2 shadow-lg transition-all duration-700">
+                                <h3 class="font-bold text-lg mb-3">
+                                    <i class="fas fa-lightbulb mr-2"></i>Personalized Recommendations
+                                </h3>
+                                <div id="recommendations" class="space-y-2"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Error State -->
+                        <div id="errorResults" class="hidden">
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-exclamation-triangle text-red-500 text-xl mr-3"></i>
+                                    <div>
+                                        <h3 class="font-semibold text-red-800">Prediction Error</h3>
+                                        <p id="errorMessage" class="text-red-600 text-sm mt-1"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12 py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© 2026 Soil Quality Prediction System | Powered by Machine Learning</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
